@@ -6,7 +6,7 @@ const {Op} = require ('sequelize');
 const getAllCountries = async () =>{
 
   const dbCountries =  await Country.findAll();
-   console.log(dbCountries);
+  //  console.log(dbCountries);
   if(!dbCountries.length){
    const urlApi = await axios.get('http://localhost:5000/countries')
    console.log(urlApi);
