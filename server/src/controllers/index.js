@@ -1,11 +1,37 @@
-
+const axios = require("axios");
 const { Country, Activity } = require ('../db')
 const {Op} = require ('sequelize');
 
 
 const getAllCountries = async () =>{
-  
-    const dbCountry =  await Country.findAll({
+
+  const dbCountries =  await Country.findAll();
+   console.log(dbCountries);
+  if(!dbCountries.length){
+   const urlApi = await axios.get('http://localhost:5000/countries')
+   console.log(urlApi);
+   const infoApi = await urlApi.data.map((e)=>{
+     return {
+       id: e.cca3,
+       name: e.name.common,
+       image: e.flags.svg,
+       continent: e.continents[0],
+       capital: e.capital ? e.capital[0] : 'Not Found',
+       subregion: e.subregion ? e.subregion: 'Not Found',
+       area: e.area,
+       population: e.population,
+     }
+   });
+
+   for (let i = 0; i < infoApi.length; i++) {
+     await Country.findOrCreate({ 
+       where: {name: infoApi[i].name}, 
+       defaults: infoApi[i],
+     })
+   }
+ }
+
+   const dbCountry =  await Country.findAll({
      include: {
        model: Activity,
        attributes: ["name","difficulty","duration","season"],
@@ -14,7 +40,7 @@ const getAllCountries = async () =>{
        }
      }
   });
-    return dbCountry;
+  return dbCountry;
 } 
 
 const getCountryById = async (id) => {
@@ -87,5 +113,5 @@ module.exports = {
     getCountryByName,
     postActivities,
     getAllActivities,
-    deleteActivities
+    deleteActivities,
 };
