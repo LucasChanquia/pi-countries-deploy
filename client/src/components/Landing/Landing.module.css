@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Tillana:wght@800&display=swap');
+
+.title{
+    font-family: 'Shantell Sans', cursive;
+    font-size: 120px;
+    color: #E21818;
+
+}
+
+.button{
+    font-family: 'Tillana', cursive;
+    font-size: 20px;
+    color: white;
+    background: rgb(161,50,69);
+    background: radial-gradient(circle, rgba(161,50,69,1) 0%, rgba(1,1,1,1) 100%);
+    padding: 10px;
+    margin-top: 50px;
+}
+
+.button:hover{
+    transform: scale(1.10);
+}
