@@ -18,7 +18,7 @@ countriesRouter.get('/', async (req, res)=>{
                 }
         } else {
             const allCountries = await getAllCountries();
-            console.log("asasdasda", allCountries);
+         
             return res.status(200).json(allCountries)
         }
         

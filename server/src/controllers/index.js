@@ -15,34 +15,34 @@ const axios = require('axios');
 
 const getAllCountries = async () => {
 
-  fs.readFile('\api\\db.json', 'utf8', async (err, data) => {
-    if (err) {
-      console.error('Error al leer el archivo JSON:', err);
-      return;
-    } else {
-      const countries = JSON.parse(data);
+   fs.readFile('\api\\db.json', 'utf8', async (err, data) => {
+     if (err) {
+       console.error('Error al leer el archivo JSON:', err);
+       return;
+     } else {
+       const countries = JSON.parse(data);
       
-      const infoApi = countries.countries.map((e) => {
-        return {
-          id: e.cca3,
-          name: e.name.common,
-          image: e.flags.svg,
-          continent: e.continents[0],
-          capital: e.capital ? e.capital[0] : 'Not Found',
-          subregion: e.subregion ? e.subregion : 'Not Found',
-          area: e.area,
-          population: e.population,
-        }  
-      }
-      )
+       const infoApi = countries.countries.map((e) => {
+         return {
+           id: e.cca3,
+           name: e.name.common,
+           image: e.flags.svg,
+           continent: e.continents[0],
+           capital: e.capital ? e.capital[0] : 'Not Found',
+           subregion: e.subregion ? e.subregion : 'Not Found',
+           area: e.area,
+           population: e.population,
+         }  
+       }
+       )
 
-      for (let i = 0; i < infoApi.length; i++) {
-        await Country.findOrCreate({
-          where: { name: infoApi[i].name },
-          defaults: infoApi[i],
-        })
-      }
-    }
+       for (let i = 0; i < infoApi.length; i++) {
+         await Country.findOrCreate({
+           where: { name: infoApi[i].name },
+           defaults: infoApi[i],
+         })
+       }
+     }
 
     const dbCountry = await Country.findAll({
       include: {
@@ -53,7 +53,7 @@ const getAllCountries = async () => {
         }
       }
     });
-    console.log("dvb country", dbCountry);
+    
     return dbCountry;
   }
   )
@@ -93,7 +93,7 @@ const getAllCountries = async () => {
   //     }
   //  });
   //    return dbCountry;
-}
+ }
 
 const getCountryById = async (id) => {
 
