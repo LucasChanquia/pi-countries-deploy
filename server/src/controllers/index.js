@@ -15,7 +15,7 @@ const axios = require('axios');
 
 const getAllCountries = async () => {
 
-   fs.readFile('\api\\db.json', 'utf8', async (err, data) => {
+   fs.readFile('db.json', 'utf8', async (err, data) => {
      if (err) {
        console.error('Error al leer el archivo JSON:', err);
        return;
