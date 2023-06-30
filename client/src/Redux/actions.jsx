@@ -4,6 +4,7 @@ export const getCountries = () => {
   try {
     return async  (dispatch) => {
       const { data } = await axios.get("countries");
+      console.log(data);
       if(data.length)
       return dispatch({ type: "GET_COUNTRIES", payload: data });
     };
